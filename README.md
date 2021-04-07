@@ -5,5 +5,5 @@
 ## 运行示例
 
 ```bash
-$ cnpm i && node index.js
+$ npm i && node index.js
 ```
