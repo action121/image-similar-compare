@@ -101,6 +101,13 @@ compareResult(fileNames).then(arr=>{
 
 // es7解决方案
 //循环中如果后一个Promise的执行依赖与前一个Promise的执行结果(即必要等当前Promise执行完了再进行下次循环)
+
+
+ //相似度
+function getSimilarity(strLen,hm){
+    return parseInt(Math.max((strLen - hm),0)/strLen*100)
+}
+
 async function compareResult(fileNames) {
     let arr = [];
 
@@ -109,10 +116,12 @@ async function compareResult(fileNames) {
         const compareTarget = imghash.hash(compareTargetImage);
         return new Promise(resolve => {
             Promise.all([target, compareTarget]).then((results) => {
+                console.log('results'+results)
                 const dist = hamming(results[0], results[1]);
                 arr.push({
                     image: compareTargetImage,
-                    similar: dist
+                    similar: dist,
+                    similarPercent: getSimilarity(results[0].length,dist)+'%'
                 });
                 resolve(dist);
             })
